@@ -1,0 +1,127 @@
+name: thermostat-sinope
+components:
+- id: main
+  capabilities:
+  - id: temperatureMeasurement
+    version: 1
+  - id: thermostatHeatingSetpoint
+    version: 1
+    config:
+      values:
+        - key: "heatingSetpoint.value"
+          range: [ 4, 28 ]
+  - id: thermostatMode
+    version: 1
+  - id: thermostatOperatingState
+    version: 1
+    config:
+      values:
+        - key: "thermostatOperatingState.value"
+          enabledValues:
+            - heating
+            - idle
+  - id: firmwareUpdate
+    version: 1
+  - id: refresh
+    version: 1
+  categories:
+  - name: Thermostat
+preferences:
+  - name: "keypadLock"
+    title: "Keypad Lock"
+    description: "Enable or disable the device's buttons."
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+       0: "Unlock"
+       1: "Lock"
+      default: 0
+  - name: "backlightSetting"
+    title: "Backlight Setting"
+    description: "On Demand or Always ON"
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+       0: "On Demand"
+       1: "Always ON"
+      default: 1
+  - name: "timeFormat"
+    title: "Time Format"
+    description: "Time format displayed by the device."
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+       0: "24h"
+       1: "12h AM/PM"
+      default: 0
+  - title: "Weather Source"
+    name: wsource
+    description: "Choose source"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        openw: "OpenWeather"
+        cw_jamer007: "Canadian Weather jamer007"
+      default: cw_jamer007
+  - title: "Current Weather URL"
+    name: url
+    description: "URL"
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 5
+      default: "xxxxx"
+  - title: "Proxy Server Address"
+    name: proxyaddr
+    description: "IP:port"
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      minLength: 17
+      default: "http://192.168.1.n:nnnn"
+  - title: "Proxy Type"
+    name: proxytype
+    description: "Choose option"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        generic: "Standard Proxy Server"
+        edge: "Edge Bridge Server"
+        none: "None"
+      default: generic
+  - title: "Periodic Refresh"
+    name: autorefresh
+    description: "Enable/disable"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        enabled: "Enable auto refresh"
+        disabled: "No auto refresh"
+      default: disabled
+  - title: "Refresh Rate"
+    name: refreshrate
+    description: "Every n minutes"
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 1
+      maximum: 1440
+      default: 60
+  - title: "Secondary Display"
+    name: secondarydisplay
+    description: "Which temperature to display on the secondary screen"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        set: "Display set temperature"
+        outdoor: "Display outdoor temperature"
+      default: outdoor

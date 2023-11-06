@@ -1,0 +1,8 @@
+name: 'Zigbee Thermostat Jamer007'
+defaultProfile: 'thermostat-battery-powerSource'
+packageKey: 'zigbee-thermostat-jamer007'
+description: 'Stock Driver Modified for Sinope thermostats.'
+permissions:
+  zigbee: {}
+  lan: {}
+  discovery: {}
