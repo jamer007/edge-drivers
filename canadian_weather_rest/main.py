@@ -6,32 +6,27 @@ from env_canada import ECWeather
 app = Flask(__name__)
 
 
-@app.route('/')
-def get_weather():
-    return get_current_weather()
+@app.route('/<coord>')
+def get_weather(coord=None):
+    if coord:
+        coord = coord.split(',')
+        if len(coord) < 2:
+            print('Coordinate must be geodesic format, ex: 45.512333,-73.587011')
+            return {}
+        return get_current_weather(float(coord[0]), float(coord[1]))
+    else:
+        print('Please provide coordinate')
+        return {}
 
 
-def get_current_weather():
-    ec_en = ECWeather(coordinates=(46.139482, -73.661778))
-    # ec_fr = ECWeather(station_id='ON/s0000430', language='french')
-
+def get_current_weather(lat: float, lon: float) -> dict:
+    ec_en = ECWeather(coordinates=(lat, lon))
     asyncio.run(ec_en.update())
-
-    # current conditions
     current = ec_en.conditions
 
     if current.get('temperature', {}).get('value') is not None:
         return {'temp': current.get('temperature').get('value')}
 
-
-# daily forecasts
-# ec_en.daily_forecasts
-#
-# # hourly forecasts
-# ec_en.hourly_forecasts
-#
-# # alerts
-# ec_en.alerts
 
 # main driver function
 if __name__ == '__main__':
