@@ -1,5 +1,5 @@
 --[[
-  Copyright 2022 Todd Austin
+  Copyright 2023 Jeremy Viel
 
   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
   except in compliance with the License. You may obtain a copy of the License at:
@@ -14,13 +14,11 @@
 
   DESCRIPTION
   
-  SmartThings Edge Weather Driver - parse Canadian Weather data
+  SmartThings Sinope Zigbee Thermostat Driver - parse Canadian Weather data
 
 --]]
 
-local capabilities = require "st.capabilities"
 local json = require "dkjson"
-local log = require "log"
 
 
 local function modify_current_url(current_url)
@@ -38,10 +36,10 @@ local function update_current(device, weatherdata)
     }
   }
 
-  local data, pos, err = json.decode (weatherdata, 1, nil)
+  local data, _, _ = json.decode (weatherdata, 1, nil)
 
   if data.temp then
-   weathertable.current.temperature = data.temp
+    weathertable.current.temperature = data.temp
   end
 
   return weathertable

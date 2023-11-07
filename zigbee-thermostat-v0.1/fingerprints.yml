@@ -1,50 +1,4 @@
 zigbeeManufacturer:
-  - id: "Vimar/02973-smart-wheel-thermostat"
-    deviceLabel: Vimar Smart Thermostat
-    manufacturer: Vimar
-    model: WheelThermostat_v1.0
-    deviceProfileName: thermostat-fanless-heating-no-fw
-  - id: "Vimar/02973-smart-wheel-thermostat-2"
-    deviceLabel: Vimar Smart Thermostat
-    manufacturer: Vimar
-    model: Thermostat_v1.0
-    deviceProfileName: thermostat-fanless-heating-no-fw
-  - id: "LUX/KONOZ"
-    deviceLabel: LUX Thermostat
-    manufacturer: LUX
-    model: KONOZ
-    deviceProfileName: thermostat-battery-powerSource
-  - id: "Umbrela/Thermostat"
-    deviceLabel: Umbrela Thermostat
-    manufacturer: Umbrela
-    model: Thermostat
-    deviceProfileName: thermostat-battery-powerSource
-  - id: "Danfoss/eTRV0100"
-    deviceLabel: Danfoss Thermostat
-    manufacturer: Danfoss
-    model: eTRV0100
-    deviceProfileName: thermostat-popp-danfoss
-  # added 18-oct-23
-  - id: "Danfoss/eTRV0103"
-    deviceLabel: Danfoss Thermostat
-    manufacturer: Danfoss
-    model: eTRV0103
-    deviceProfileName: thermostat-popp-danfoss
-  - id: "D5X84YU/eT093WRO"
-    deviceLabel: POPP Thermostat
-    manufacturer: D5X84YU
-    model: eT093WRO
-    deviceProfileName: thermostat-popp-danfoss
-  - id: "Zen Within/Zen-01"
-    deviceLabel: Zen Thermostat
-    manufacturer: Zen Within
-    model: Zen-01
-    deviceProfileName: thermostat-battery
-  - id: "Fidure/A1732R3"
-    deviceLabel: Fidure Thermostat
-    manufacturer: Fidure
-    model: A1732R3
-    deviceProfileName: base-thermostat
   - id: "Sinope Technologies/TH1123ZB"
     deviceLabel: Sinope Thermostat
     manufacturer: Sinope Technologies
@@ -53,7 +7,7 @@ zigbeeManufacturer:
     clusters:
       server:
         - 0x0201 #Thermostat
-        - 0x0702 #Simple Metering
+        - 0x0402 #TemperatureMeasurement
         - 0x0B04 #Electrical Measurement
   - id: "Sinope Technologies/TH1124ZB"
     deviceLabel: Sinope Thermostat
@@ -63,9 +17,7 @@ zigbeeManufacturer:
     clusters:
       server:
         - 0x0201 #Thermostat
-        - 0x0202 #FanControl
         - 0x0402 #TemperatureMeasurement
-        - 0x0702 #Simple Metering
         - 0x0B04 #Electrical Measurement
   - id: "Sinope Technologies/TH1300ZB"
     deviceLabel: Sinope Thermostat
@@ -93,10 +45,3 @@ zigbeeGeneric:
         - 0x0702 #Simple Metering
         - 0x0B04 #Electrical Measurement
     deviceProfileName: base-thermostat
-  - id: "fanlessThermostat"
-    deviceLabel: Zigbee Thermostat
-    clusters:
-      server:
-        - 0x0201
-        - 0x0402
-    deviceProfileName: base-thermostat-fanless

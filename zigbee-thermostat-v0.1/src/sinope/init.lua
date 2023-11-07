@@ -32,11 +32,11 @@ local PowerMeter                = capabilities.powerMeter
 local common = require "common"                   -- HTTP requests to fetch weather data
 local comms = require "comms"                   -- HTTP requests to fetch weather data
 -- Weather source modules
-local _openweather = require "openweather"
+local _usgov = require "usgov"
 local _cw_jamer007 = require "cw_jamer007"
 
 local wmodule = {
-  ['openw'] = _openweather,
+  ['usgov'] = _usgov,
   ['cw_jamer007'] = _cw_jamer007,
 }
 
@@ -213,6 +213,7 @@ local function restart_timer(driver, device)
     end,
     'Update outside temp schedule')
   device:set_field('periodictimer', periodic_timer)
+  send_outside_temperature(driver, device)
 
 end
 

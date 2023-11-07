@@ -73,7 +73,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        openw: "OpenWeather"
+        usgov: "US Gov"
         cw_jamer007: "Canadian Weather jamer007"
       default: cw_jamer007
   - title: "Current Weather URL"
