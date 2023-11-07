@@ -19,14 +19,17 @@ local data_types                           = require "st.zigbee.data_types"
 local log                                  = require "log"
 local Thermostat                           = clusters.Thermostat
 local ThermostatUserInterfaceConfiguration = clusters.ThermostatUserInterfaceConfiguration
+local ElectricalMeasurement                = clusters.ElectricalMeasurement
 
 local capabilities              = require "st.capabilities"
 local ThermostatMode            = capabilities.thermostatMode
 local ThermostatOperatingState  = capabilities.thermostatOperatingState
 local ThermostatHeatingSetpoint = capabilities.thermostatHeatingSetpoint
 local TemperatureMeasurement    = capabilities.temperatureMeasurement
+local PowerMeter                = capabilities.powerMeter
 
 -- Driver modules
+local common = require "common"                   -- HTTP requests to fetch weather data
 local comms = require "comms"                   -- HTTP requests to fetch weather data
 -- Weather source modules
 local _openweather = require "openweather"
@@ -36,8 +39,6 @@ local wmodule = {
   ['openw'] = _openweather,
   ['cw_jamer007'] = _cw_jamer007,
 }
-
-
 
 local write = require "writeAttribute"
 
@@ -109,59 +110,14 @@ local is_sinope_thermostat = function(opts, driver, device)
   end
 end
 
--- Validate format of proxy IP:port address
-local function validate_address(lanAddress)
-
-  local valid = true
-  
-  local hostaddr = lanAddress:match('://(.+)$')
-  if hostaddr == nil then; return false; end
-  
-  local ip = hostaddr:match('^(%d.+):')
-  local port = tonumber(hostaddr:match(':(%d+)$'))
-  
-  if ip then
-    local chunks = {ip:match("^(%d+)%.(%d+)%.(%d+)%.(%d+)$")}
-    if #chunks == 4 then
-      for _, v in pairs(chunks) do
-        if tonumber(v) > 255 then 
-          valid = false
-          break
-        end
-      end
-    else
-      valid = false
-    end
-  else
-    valid = false
-  end
-  
-  if port then
-    if type(port) == 'number' then
-      if (port < 1) or (port > 65535) then 
-        valid = false
-      end
-    else
-      valid = false
-    end
-  else
-    valid = false
-  end
-  
-  if valid then
-    return ip, port
-  else
-    return nil
-  end
-      
-end
 
 local do_refresh = function(self, device)
   local attributes = {
     Thermostat.attributes.LocalTemperature,
     Thermostat.attributes.OccupiedHeatingSetpoint,
     Thermostat.attributes.PIHeatingDemand,
-    Thermostat.attributes.SystemMode
+    Thermostat.attributes.SystemMode,
+    ElectricalMeasurement.attributes.ActivePower,
   }
   for _, attribute in pairs(attributes) do
     device:send(attribute:read(device))
@@ -170,25 +126,37 @@ end
 
 local do_configure = function(self, device)
   device:send(device_management.build_bind_request(device, Thermostat.ID, self.environment_info.hub_zigbee_eui))
+  device:send(device_management.build_bind_request(device, ElectricalMeasurement.ID, self.environment_info.hub_zigbee_eui))
   device:send(Thermostat.attributes.LocalTemperature:configure_reporting(device, 19, 300, 25)) -- report temperature changes over 0.25°C
   device:send(Thermostat.attributes.OccupiedHeatingSetpoint:configure_reporting(device, 8, 302, 40))
   device:send(Thermostat.attributes.PIHeatingDemand:configure_reporting(device, 11, 301, 10))
   device:send(Thermostat.attributes.SystemMode:configure_reporting(device, 10, 305))
 end
 
-local function send_outside_temperature(device)
+
+local outdoor_temperature_handler = function(driver, device, outdoorTemp)
+  local celc_temp = outdoorTemp
+  local temp_scale = "C"
+
+  if outdoorTemp then
+    device.profile.components["outdoorTemperature"]:emit_event(capabilities.temperatureMeasurement.temperature({value = celc_temp, unit = temp_scale}))
+  end
+
+end
+
+
+local function send_outside_temperature(driver, device)
   local status, weatherdata
   local baseurl = device.preferences.proxyaddr .. '/api/forward?url='
   local temp_to_set = nil
 
-  if (validate_address(device.preferences.proxyaddr)) and device.preferences.url ~= 'xxxxx' then
+  if device.preferences.url ~= 'xxxxx' then
     local request_url
     
     if device.preferences.proxytype ~= 'none' then
-  
       request_url = wmodule[device.preferences.wsource].modify_current_url(device.preferences.url)
-    
-      if device.preferences.proxytype == 'edge' then
+
+      if device.preferences.proxytype == 'edge' and (common.validate_address(device.preferences.proxyaddr)) then
         request_url = baseurl .. request_url
       end
     else
@@ -202,6 +170,7 @@ local function send_outside_temperature(device)
  
       if weathertable.current.temperature then
         temp_to_set = (math.floor(weathertable.current.temperature*2+0.5)/2)*100
+        outdoor_temperature_handler(driver, device, temp_to_set/100)
       end
       
     else
@@ -227,6 +196,9 @@ local thermostat_heating_demand_handler = function(driver, device, heatingDemand
   end
 end
 
+local function energy_meter_handler(driver, device, value)
+  device:emit_event(capabilities.powerMeter.power({value = value.value, unit = "W" })) -- the unit of these values should be 'Wh'
+end
 
 -- Start automatic periodic refresh timer
 local function restart_timer(driver, device)
@@ -237,7 +209,7 @@ local function restart_timer(driver, device)
   local periodic_timer = driver:call_on_schedule(
     device.preferences.refreshrate * 60,
     function ()
-      return send_outside_temperature(device)
+      return send_outside_temperature(driver, device)
     end,
     'Update outside temp schedule')
   device:set_field('periodictimer', periodic_timer)
@@ -291,6 +263,8 @@ end
 local sinope_thermostat = {
   NAME = "Sinope Thermostat Handler",
   supported_capabilities = {
+    capabilities.refresh,
+    PowerMeter,
     TemperatureMeasurement,
     ThermostatHeatingSetpoint,
     ThermostatMode,
@@ -299,14 +273,18 @@ local sinope_thermostat = {
   zigbee_handlers = {
     attr = {
       [Thermostat.ID] = {
-        [Thermostat.attributes.PIHeatingDemand.ID] = thermostat_heating_demand_handler
-      }
+        [Thermostat.attributes.PIHeatingDemand.ID] = thermostat_heating_demand_handler,
+        [Thermostat.attributes.OutdoorTemperature.ID] = outdoor_temperature_handler
+      },
+      [ElectricalMeasurement.ID] = {
+        [ElectricalMeasurement.attributes.ActivePower.ID] = energy_meter_handler
+      },
     }
   },
   capability_handlers = {
     [capabilities.refresh.ID] = {
       [capabilities.refresh.commands.refresh.NAME] = do_refresh,
-    }
+    },
   },
   lifecycle_handlers = {
     init = device_init,

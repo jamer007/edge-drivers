@@ -50,11 +50,23 @@ zigbeeManufacturer:
     manufacturer: Sinope Technologies
     model: TH1123ZB
     deviceProfileName: thermostat-sinope
+    clusters:
+      server:
+        - 0x0201 #Thermostat
+        - 0x0702 #Simple Metering
+        - 0x0B04 #Electrical Measurement
   - id: "Sinope Technologies/TH1124ZB"
     deviceLabel: Sinope Thermostat
     manufacturer: Sinope Technologies
     model: TH1124ZB
     deviceProfileName: thermostat-sinope
+    clusters:
+      server:
+        - 0x0201 #Thermostat
+        - 0x0202 #FanControl
+        - 0x0402 #TemperatureMeasurement
+        - 0x0702 #Simple Metering
+        - 0x0B04 #Electrical Measurement
   - id: "Sinope Technologies/TH1300ZB"
     deviceLabel: Sinope Thermostat
     manufacturer: Sinope Technologies
@@ -70,83 +82,6 @@ zigbeeManufacturer:
     manufacturer: Sinope Technologies
     model: TH1500ZB
     deviceProfileName: thermostat-sinope
-  - id: "Stelpro/STZB402plus"
-    deviceLabel: Stelpro Thermostat
-    manufacturer: Stelpro
-    model: STZB402+
-    deviceProfileName: thermostat-temperature-temperaturealarm
-  - id: "Stelpro/SMT402AD" # Added M.colmenarejo
-    deviceLabel: Stelpro Thermostat
-    manufacturer: Stelpro
-    model: SMT402AD
-    deviceProfileName: thermostat-stelpro-profile
-  - id: "Stelpro/ST218"
-    deviceLabel: Stelpro Thermostat
-    manufacturer: Stelpro
-    model: ST218
-    deviceProfileName: thermostat-temperature-temperaturealarm
-  - id: "Stelpro/MaestroStat"
-    deviceLabel: Stelpro Thermostat
-    manufacturer: Stelpro
-    model: MaestroStat
-    deviceProfileName: thermostat-stelpro-profile
-  - id: "Stelpro/SORB"
-    deviceLabel: Stelpro Thermostat
-    manufacturer: Stelpro
-    model: SORB
-    deviceProfileName: thermostat-stelpro-profile
-  - id: "Stelpro/SonomaStyle"
-    deviceLabel: Stelpro Thermostat
-    manufacturer: Stelpro
-    model: SonomaStyle
-    deviceProfileName: thermostat-stelpro-profile
-  - id: "Leviton RC"
-    deviceLabel: Leviton RC Series Thermostat
-    manufacturer: HAI
-    model: 65A01-1
-    deviceProfileName: base-thermostat-no-operating-state
-  - id: "Centralite/3157100"
-    deviceLabel: Centralite Thermostat
-    manufacturer: Centralite
-    model: 3157100
-    deviceProfileName: base-thermostat-no-operating-state
-  - id: "Centralite/3157100-E"
-    deviceLabel: Centralite Thermostat
-    manufacturer: Centralite
-    model: 3157100-E
-    deviceProfileName: base-thermostat-no-operating-state
-  - id: "Centralite/3156105"
-    deviceLabel: Centralite Thermostat
-    manufacturer: Centralite
-    model: 3156105
-    deviceProfileName: base-thermostat-no-operating-state
-
-  # added M. Colmenarejo
-  - id: "Eurotronic/SPZB0001"
-    deviceLabel: Eurotronic Thermostat
-    manufacturer: Eurotronic
-    model: SPZB0001
-    deviceProfileName: thermostat-eurotronic
-  - id: "ClimaxTechnology/TMSTB"
-    deviceLabel: ClimaxTechnology Thermostat
-    manufacturer: ClimaxTechnology
-    model: TMSTB_00.00.03.07TC
-    deviceProfileName: base-thermostat
-  - id: "Aqara-E1/lumi.airrtc.agl001"
-    deviceLabel: Aqara-E1 Thermostat
-    manufacturer: LUMI
-    model: lumi.airrtc.agl001
-    deviceProfileName: base-thermostat-battery-fanless
-  - id: "Centralite/3157100-eu"
-    deviceLabel: Centralite Thermostat
-    manufacturer: Centralite
-    model: 3157100-eu
-    deviceProfileName: base-thermostat-no-operating-state
-  - id: "NAMRON AS/4512737"
-    deviceLabel: NAMRON Thermostat
-    manufacturer: NAMRON AS
-    model: 4512737
-    deviceProfileName: namrom-thermostat
 zigbeeGeneric:
   - id: "genericThermostat"
     deviceLabel: Zigbee Thermostat
@@ -155,6 +90,8 @@ zigbeeGeneric:
         - 0x0201 #Thermostat
         - 0x0202 #FanControl
         - 0x0402 #TemperatureMeasurement
+        - 0x0702 #Simple Metering
+        - 0x0B04 #Electrical Measurement
     deviceProfileName: base-thermostat
   - id: "fanlessThermostat"
     deviceLabel: Zigbee Thermostat

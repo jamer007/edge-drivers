@@ -48,7 +48,8 @@ local function issue_request(device, req_method, req_url, sendbody)
   elseif device.preferences.proxytype == 'edge' then
     sethost = req_url:match('forward%?url=(.+)$')
   elseif device.preferences.proxytype == 'none' then
-    sethost = req_url:match('%?url=(.+)$')
+    -- sethost = req_url:match('%?url=(.+)$')
+    sethost = req_url
   end
   
   if sethost then

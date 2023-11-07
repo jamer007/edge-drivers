@@ -18,12 +18,16 @@ local device_management = require "st.zigbee.device_management"
 local defaults          = require "st.zigbee.defaults"
 local utils             = require "st.utils"
 local xiaomi_utils      = require "xiaomi_utils"
+local log               = require "log"
 
 -- Zigbee Spec Utils
 local clusters                      = require "st.zigbee.zcl.clusters"
 local PowerConfiguration            = clusters.PowerConfiguration
 local Thermostat                    = clusters.Thermostat
 local FanControl                    = clusters.FanControl
+local ElectricalMeasurement         = clusters.ElectricalMeasurement
+local SimpleMetering                = clusters.SimpleMetering
+
 
 local FanMode = FanControl.attributes.FanMode
 local FanModeSequence           = FanControl.attributes.FanModeSequence
@@ -41,6 +45,9 @@ local ThermostatOperatingState  = capabilities.thermostatOperatingState
 local Battery                   = capabilities.battery
 local PowerSource               = capabilities.powerSource
 local RelativeHumidity          = capabilities.relativeHumidityMeasurement
+local PowerMeter                = capabilities.powerMeter
+local EnergyMeter               = capabilities.energyMeter
+local PowerConsumptionReport    = capabilities.powerConsumptionReport
 
 -- lux thermostat uses min 5V, max of 6.5V
 local BAT_MIN = 50.0
@@ -147,6 +154,29 @@ local thermostat_fan_mode_handler = function(driver, device, attr_fan_mode)
   end
 end
 
+
+local function power_meter_handler(driver, device, value, zb_rx)
+  log.warn(string.format('????????????value %s %s', value, value.value))
+  local raw_value_miliwatts = value.value
+  local raw_value_watts = raw_value_miliwatts / 1000
+  local delta_energy = 0.0
+  local current_power_consumption = device:get_latest_state("main", capabilities.powerConsumptionReport.ID, capabilities.powerConsumptionReport.powerConsumption.NAME)
+
+  log.warn(string.format('????????????current_power_consumption %s %s', current_power_consumption, current_power_consumption.energy))
+  if current_power_consumption ~= nil then
+    delta_energy = math.max(raw_value_watts - current_power_consumption.energy, 0.0)
+  end
+  log.warn(string.format('????????????converted_value %s %s', raw_value_watts, delta_energy))
+  device:emit_event(capabilities.powerConsumptionReport.powerConsumption({energy = raw_value_watts, deltaEnergy = delta_energy })) -- the unit of these values should be 'Wh'
+
+  local multiplier = device:get_field(constants.SIMPLE_METERING_MULTIPLIER_KEY) or 1
+  local divisor = device:get_field(constants.SIMPLE_METERING_DIVISOR_KEY) or 1000000
+  local converted_value = raw_value_miliwatts * multiplier/divisor -- unit: kWh
+  log.warn(string.format('????????????converted_value %s', converted_value))
+  device:emit_event(capabilities.energyMeter.energy({value = converted_value, unit = "kWh"}))
+end
+
+
 local set_thermostat_mode = function(driver, device, command)
   for zigbee_attr_val, st_cap_val in pairs(THERMOSTAT_MODE_MAP) do
     if command.args.mode == st_cap_val.NAME then
@@ -210,7 +240,8 @@ local do_refresh = function(self, device)
     FanControl.attributes.FanModeSequence,
     FanControl.attributes.FanMode,
     PowerConfiguration.attributes.BatteryVoltage,
-    PowerConfiguration.attributes.BatteryAlarmState
+    PowerConfiguration.attributes.BatteryAlarmState,
+    SimpleMetering.attributes.CurrentSummationDelivered,
   }
   for _, attribute in pairs(attributes) do
     device:send(attribute:read(device))
@@ -221,6 +252,8 @@ local do_configure = function(self, device)
   device:send(device_management.build_bind_request(device, Thermostat.ID, self.environment_info.hub_zigbee_eui))
   device:send(device_management.build_bind_request(device, FanControl.ID, self.environment_info.hub_zigbee_eui))
   device:send(device_management.build_bind_request(device, PowerConfiguration.ID, self.environment_info.hub_zigbee_eui))
+  device:send(device_management.build_bind_request(device, SimpleMetering.ID, self.environment_info.hub_zigbee_eui))
+  device:send(device_management.build_bind_request(device, ElectricalMeasurement.ID, self.environment_info.hub_zigbee_eui))
   device:send(PowerConfiguration.attributes.BatteryVoltage:configure_reporting(device, 30, 21600, 1))
 end
 
@@ -239,8 +272,9 @@ local zigbee_thermostat_driver = {
     RelativeHumidity,
     Battery,
     PowerSource,
-    capabilities.powerMeter,
-    capabilities.energyMeter
+    PowerMeter,
+    EnergyMeter,
+    PowerConsumptionReport
   },
   zigbee_handlers = {
     attr = {
