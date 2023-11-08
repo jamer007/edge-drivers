@@ -1,10 +1,18 @@
 # Sinope Thermostat jamer007
 ## Overview
-This SmartThings Edge driver creates a SmartThings device that provides weather data from select weather data sources:
+
+#### Here the link to my Edge drivers Channel
+
+https://bestow-regional.api.smartthings.com/invite/Pw2DkDvx39M3
+
+This SmartThings Edge drivers were created by me with a lot of inspiration/code from https://github.com/toddaustin07/edgeWeather and https://github.com/Mariano-Github/Edge-Drivers-Beta/tree/main/zigbee-thermostat-stock-mc,  
+without them I would have not created those drivers, many thanks.
+
+provides weather data from select weather data sources:
 * US Government
 * Canadian Weather
 
-This driver requires no SmartApp, however it does require either my **Edge Bridge Server** or a standard **Proxy server**[^1] running on a computer on your network.  This provides the linkage for the Edge driver to reach internet endpoints which otherwise are not available to Edge drivers.
+This driver requires no SmartApp, however it does require either TAustin **Edge Bridge Server** or a standard **Proxy server**[^1] running on a computer on your network.  This provides the linkage for the Edge driver to reach internet endpoints which otherwise are not available to Edge drivers.
 
 [^1]: Due to a restriction in the current Edge platform implementation, reaching **HTTPS**-based addresses from Edge drivers is not supported using a standard proxy server.  Therefore, if the weather data source is only available via https and not http, then my Edge Bridge Server *must* be used.
 
@@ -51,6 +59,15 @@ Currently, the edgeWeather driver provides 2 options for weather data, however i
 When the driver is available on your hub, initiate an *Add device / Scan for nearby devices* from the SmartThings mobile app.  A new device will be created and found in your *No room assigned* or hub device room.  Open the device to the device *Settings* screen (three vertical dot menu in upper right of Controls screen).
 
 ### Settings
+#### Keypad Lock
+For locking or not the thermostat button
+
+#### Backlight setting
+For enable or not the screen backlight
+
+#### Time Format
+24h or 12h AM/PM format
+
 #### Weather Source
 Choose US Gov or Canadian Weather
 #### Current Weather URL
