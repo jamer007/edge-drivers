@@ -5,4 +5,3 @@ description: 'Stock Driver Modified for Sinope thermostats.'
 permissions:
   zigbee: {}
   lan: {}
-  discovery: {}
