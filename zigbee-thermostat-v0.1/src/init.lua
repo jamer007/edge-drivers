@@ -17,7 +17,6 @@ local ZigbeeDriver      = require "st.zigbee"
 local device_management = require "st.zigbee.device_management"
 local defaults          = require "st.zigbee.defaults"
 local utils             = require "st.utils"
-local xiaomi_utils      = require "xiaomi_utils"
 local log               = require "log"
 
 -- Zigbee Spec Utils
@@ -291,10 +290,6 @@ local zigbee_thermostat_driver = {
       [FanControl.ID] = {
         [FanControl.attributes.FanModeSequence.ID] = supported_fan_modes_handler,
         [FanControl.attributes.FanMode.ID] = thermostat_fan_mode_handler
-      },
-      [clusters.basic_id] = {
-        [0xFF02] = xiaomi_utils.battery_handler,
-        [0xFF01] = xiaomi_utils.battery_handler
       },
     }
   },

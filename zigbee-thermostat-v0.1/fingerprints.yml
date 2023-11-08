@@ -24,16 +24,31 @@ zigbeeManufacturer:
     manufacturer: Sinope Technologies
     model: TH1300ZB
     deviceProfileName: thermostat-sinope-th1300
+    clusters:
+      server:
+        - 0x0201 #Thermostat
+        - 0x0402 #TemperatureMeasurement
+        - 0x0B04 #Electrical Measurement
   - id: "Sinope Technologies/TH1400ZB"
     deviceLabel: Sinope Thermostat
     manufacturer: Sinope Technologies
     model: TH1400ZB
     deviceProfileName: thermostat-sinope-th1400
+    clusters:
+      server:
+        - 0x0201 #Thermostat
+        - 0x0402 #TemperatureMeasurement
+        - 0x0B04 #Electrical Measurement
   - id: "Sinope Technologies/TH1500ZB"
     deviceLabel: Sinope Thermostat
     manufacturer: Sinope Technologies
     model: TH1500ZB
     deviceProfileName: thermostat-sinope
+    clusters:
+      server:
+        - 0x0201 #Thermostat
+        - 0x0402 #TemperatureMeasurement
+        - 0x0B04 #Electrical Measurement
 zigbeeGeneric:
   - id: "genericThermostat"
     deviceLabel: Zigbee Thermostat
