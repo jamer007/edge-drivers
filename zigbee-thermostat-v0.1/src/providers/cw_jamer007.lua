@@ -32,14 +32,19 @@ local function update_current(device, weatherdata)
 
   local weathertable = {
     current = {
-      temperature = nil
+      temperature_c = nil,
+      temperature_f = nil,
     }
   }
 
   local data, _, _ = json.decode (weatherdata, 1, nil)
 
-  if data.temp then
-    weathertable.current.temperature = data.temp
+  if data.temp_c then
+    weathertable.current.temperature_c = data.temp_c
+  end
+
+  if data.temp_f then
+    weathertable.current.temperature_f = data.temp_f
   end
 
   return weathertable

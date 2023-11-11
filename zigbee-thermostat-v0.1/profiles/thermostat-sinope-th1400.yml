@@ -176,7 +176,7 @@ preferences:
     required: false
     preferenceType: integer
     definition:
-      minimum: 1
+      minimum: 30
       maximum: 1440
       default: 60
   - title: "Secondary Display"

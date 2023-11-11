@@ -27,22 +27,6 @@ local function modify_current_url(current_url)
 end
 
 
-local function getnumvalue(data, keystr)
-
-  local check = data
-
-  for str in string.gmatch(keystr, "([^.]+)") do
-    check = check[str]
-    if not check then
-      return 0
-    end
-  end
-  
-  return check
-
-end
-
-
 local function update_current(device, weatherdata)
 
   local weathertable = {
