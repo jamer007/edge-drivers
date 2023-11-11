@@ -1,0 +1,35 @@
+MeterIdentification
+===================
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification
+
+MeterIdentification Attributes
+++++++++++++++++++++++++++++++
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.CompanyName
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.DataQualityID
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.CustomerName
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.Model
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.PartNumber
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.ProductRevision
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.UtilityName
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.POD
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.AvailablePower
+
+.. lua:autoclass:: st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold
+
+MeterIdentification Commands
+++++++++++++++++++++++++++++
+

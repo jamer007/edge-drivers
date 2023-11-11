@@ -29,15 +29,17 @@ local TemperatureMeasurement    = capabilities.temperatureMeasurement
 local PowerMeter                = capabilities.powerMeter
 
 -- Driver modules
-local common = require "common"                   -- HTTP requests to fetch weather data
+local common = require "common"
 local comms = require "comms"                   -- HTTP requests to fetch weather data
 -- Weather source modules
-local _usgov = require "usgov"
-local _cw_jamer007 = require "cw_jamer007"
+local _usgov = require "providers.usgov"
+local _cw_jamer007 = require "providers.cw_jamer007"
+local _accuweather = require "providers.accuweather"
 
 local wmodule = {
   ['usgov'] = _usgov,
   ['cw_jamer007'] = _cw_jamer007,
+  ['accuweather'] = _accuweather,
 }
 
 local write = require "writeAttribute"
@@ -167,24 +169,46 @@ local function send_outside_temperature(driver, device)
 
     if status == true then
       weathertable = wmodule[device.preferences.wsource].update_current(device, weatherdata)
- 
-      if weathertable.current.temperature then
-        temp_to_set = (math.floor(weathertable.current.temperature*2+0.5)/2)*100
-        outdoor_temperature_handler(driver, device, temp_to_set/100)
+
+      if device.preferences.wtempunit == "c" then
+        if device.preferences.displayfeelslike == "real" and weathertable.current.temperature_c then
+          temp_to_set = weathertable.current.temperature_c
+        elseif device.preferences.displayfeelslike == "feelslike" then
+          if weathertable.current.feelslike_c then
+            temp_to_set = weathertable.current.feelslike_c
+          elseif weathertable.current.temperature_c then
+            temp_to_set = weathertable.current.temperature_c
+          end
+        end
+      elseif device.preferences.wtempunit == "f" then
+        if device.preferences.displayfeelslike == "real" and weathertable.current.temperature_f then
+          temp_to_set = weathertable.current.temperature_f
+        elseif device.preferences.displayfeelslike == "feelslike" then
+          if weathertable.current.feelslike_f then
+            temp_to_set = weathertable.current.feelslike_f
+          elseif weathertable.current.temperature_c then
+            temp_to_set = weathertable.current.temperature_f
+          end
+        end
       end
-      
+
+      if temp_to_set then
+        local half_round_temp_to_set = (math.floor(temp_to_set*2+0.5)/2)*100
+
+        outdoor_temperature_handler(driver, device, half_round_temp_to_set/100)
+
+        if device.preferences.secondarydisplay == 'outdoor' then
+          -- set the outdoor temperature timeout to 3 hours
+          device:send(write.custom_write_attribute(device, SINOPE_CUSTOM_CLUSTER, 0x0011, data_types.Uint16, 10800))
+          -- set outdoor temp value
+          device:send(write.custom_write_attribute(device, SINOPE_CUSTOM_CLUSTER, 0x0010, data_types.Int16, half_round_temp_to_set, 0x119C))
+        end
+      end
     else
       log.warn(string.format('Current data fetch failed for device %s', device.label))
     end
   else
     log.warn('Configuration required')
-  end
-
-  if temp_to_set and device.preferences.secondarydisplay == 'outdoor' then
-    -- set the outdoor temperature timeout to 3 hours
-    device:send(write.custom_write_attribute(device, SINOPE_CUSTOM_CLUSTER, 0x0011, data_types.Uint16, 10800))
-    -- set outdoor temp value
-    device:send(write.custom_write_attribute(device, SINOPE_CUSTOM_CLUSTER, 0x0010, data_types.Int16, temp_to_set, 0x119C))
   end
 end
 

@@ -82,6 +82,7 @@ local function issue_request(device, req_method, req_url, sendbody)
      }
 
   else
+    print(http)
     body, code, headers, status = http.request{
       method = req_method,
       url = req_url,

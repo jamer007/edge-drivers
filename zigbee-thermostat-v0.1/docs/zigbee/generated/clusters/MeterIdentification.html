@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeterIdentification &mdash; SmartThings Edge Device Drivers  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/font-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ApplianceEventsAlerts" href="ApplianceEventsAlerts.html" />
+    <link rel="prev" title="SimpleMetering" href="SimpleMetering.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> SmartThings Edge Device Drivers
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">References:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference/index.html">Edge Device Driver Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../global_environment.html">Global Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../driver.html">Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../capabilities.html">Capabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../matter/matter.html">Matter Libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../zigbee.html">Zigbee Libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../driver.html">Zigbee Driver Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../device.html">ZigbeeDevice Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zigbee_message_handlers.html">Zigbee Driver RX message handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../defaults.html">Zigbee Driver Capability Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../messages.html">Zigbee Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../data_types.html">Zigbee Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_commands.html">ZCL Global Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zcl/zcl_clusters.html">ZCL Clusters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../zdo/zdo_commands.html">ZDO Commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../generated.html">Generated Zigbee Code</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../clusters.html">Generated Clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../types.html">Generated Shared Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../zwave/zwave.html">Z-Wave Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../socket.html">Socket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../mdns.html">mDNS Service Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../datastore.html">Datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dispatchers.html">Dispatchers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../buf.html">Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../thread.html">Thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../log.html">Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../net_utils.html">net_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../integration_tests.html">Integration Tests</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SmartThings Edge Device Drivers</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../reference/index.html">Edge Device Driver Reference</a> &raquo;</li>
+          <li><a href="../../zigbee.html">Zigbee Libraries</a> &raquo;</li>
+          <li><a href="../../generated.html">Generated Zigbee Code</a> &raquo;</li>
+          <li><a href="../clusters.html">Generated Clusters</a> &raquo;</li>
+      <li>MeterIdentification</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/zigbee/generated/clusters/MeterIdentification.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="meteridentification">
+<h1>MeterIdentification<a class="headerlink" href="#meteridentification" title="Permalink to this headline"></a></h1>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0B01 the ID of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“MeterIdentification” the name of this cluster</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.attributes">
+<span class="sig-name descname"><span class="pre">attributes</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.MeterIdentificationServerAttributes</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.MeterIdentificationClientAttributes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.attributes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.commands">
+<span class="sig-name descname"><span class="pre">commands</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.MeterIdentificationServerCommands</span> <span class="pre">or</span> <span class="pre">st.zigbee.zcl.clusters.MeterIdentificationClientCommands</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.commands" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.types">
+<span class="sig-name descname"><span class="pre">types</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.zcl.clusters.MeterIdentificationTypes</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<section id="meteridentification-attributes">
+<h2>MeterIdentification Attributes<a class="headerlink" href="#meteridentification-attributes" title="Permalink to this headline"></a></h2>
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.CompanyName</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0000 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“CompanyName” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.CharString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a CharString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the CompanyName(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a CharString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CompanyName.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CompanyName.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0001 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“MeterTypeID” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the MeterTypeID(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.MeterTypeID.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.DataQualityID</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0004 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“DataQualityID” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Uint16</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Uint16 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the DataQualityID(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Uint16</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Uint16" title="st.zigbee.data_types.Uint16"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Uint16</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.DataQualityID.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.CustomerName</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0005 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“CustomerName” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.CharString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a CharString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the CustomerName(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a CharString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.write">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write a value to this attribute on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>value</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the value to write</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.CustomerName.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.CustomerName.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.Model</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0006 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“Model” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.OctetString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a OctetString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the Model(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a OctetString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.Model.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.Model.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.PartNumber</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0007 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“PartNumber” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.OctetString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a OctetString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the PartNumber(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a OctetString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PartNumber.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PartNumber.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.ProductRevision</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x0008 the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“ProductRevision” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.OctetString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a OctetString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the ProductRevision(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a OctetString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.ProductRevision.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x000A the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“SoftwareRevision” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.OctetString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a OctetString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the SoftwareRevision(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a OctetString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.OctetString" title="st.zigbee.data_types.OctetString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.OctetString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.SoftwareRevision.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.UtilityName</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x000B the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“UtilityName” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.CharString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a CharString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the UtilityName(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a CharString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.UtilityName.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.UtilityName.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.POD</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x000C the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“POD” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.CharString</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a CharString object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the POD(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a CharString</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.CharString" title="st.zigbee.data_types.CharString"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.CharString</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.POD.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.POD.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.AvailablePower</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x000D the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“AvailablePower” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Int24</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Int24 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the AvailablePower(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Int24</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.AvailablePower.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="lua class">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold</span></span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold" title="Permalink to this definition"></a></dt>
+<dd><dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.ID">
+<span class="sig-name descname"><span class="pre">ID</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">number</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.ID" title="Permalink to this definition"></a></dt>
+<dd><p>0x000E the ID of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">str</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.NAME" title="Permalink to this definition"></a></dt>
+<dd><p>“PowerThreshold” the name of this attribute</p>
+</dd></dl>
+
+<dl class="lua attribute">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.data_type">
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="pre">:</span> </em><span class="pre">st.zigbee.data_types.Int24</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.data_type" title="Permalink to this definition"></a></dt>
+<dd><p>the data type of this attribute</p>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.augment_type">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">augment_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">base_type_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.augment_type" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>base_type_obj</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.build_test_attr_report">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_attr_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.build_test_attr_report" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device reported this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an AttributeReport body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.build_test_read_attr_response">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">build_test_read_attr_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.build_test_read_attr_response" title="Permalink to this definition"></a></dt>
+<dd><p>Build a Rx Zigbee message as if a device sent a read response for this attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>data</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – the attribute value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing an ReadAttributeResponse body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageRx" title="st.zigbee.ZigbeeMessageRx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageRx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.new_value">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">new_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.new_value" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Int24 object of this attribute with any additional features provided for the attribute</p>
+<p>This is also usable with the PowerThreshold(…) syntax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vararg</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">vararg</span></code></span>) – the values needed to construct a Int24</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.read">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.read" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to read this attribute from a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ReadAttribute body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.configure_reporting">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">configure_reporting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">device</span></em>, <em class="sig-param"><span class="pre">min_rep_int</span></em>, <em class="sig-param"><span class="pre">max_rep_int</span></em>, <em class="sig-param"><span class="pre">rep_change</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.configure_reporting" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a st.zigbee.ZigbeeMessageTx to configure this attribute for reporting on a device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<span><a class="reference internal" href="../../device.html#st.zigbee.Device" title="st.zigbee.Device"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.Device</span></code></a></span>) – </p></li>
+<li><p><strong>min_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the minimum interval allowed between reports of this attribute</p></li>
+<li><p><strong>max_rep_int</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">number</span> <span class="pre">or</span> <span class="pre">st.zigbee.data_types.Uint16</span></code></span>) – the maximum interval allowed between reports of this attribute</p></li>
+<li><p><strong>rep_change</strong> (<span><a class="reference internal" href="../../data_types.html#st.zigbee.data_types.Int24" title="st.zigbee.data_types.Int24"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.data_types.Int24</span></code></a></span>) – The amount of change of the attribute to trigger a report</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>containing a ConfigureReporting body</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><span><a class="reference internal" href="../../messages.html#st.zigbee.ZigbeeMessageTx" title="st.zigbee.ZigbeeMessageTx"><code class="xref lua lua-class docutils literal notranslate"><span class="pre">st.zigbee.ZigbeeMessageTx</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="lua method">
+<dt class="sig sig-object lua" id="st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.set_parent_cluster">
+<em class="property"> </em><span class="sig-name descname"><span class="pre">set_parent_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cluster</span></em><span class="sig-paren">)</span><a class="headerlink" href="#st.zigbee.zcl.clusters.MeterIdentification.PowerThreshold.set_parent_cluster" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cluster</strong> (<span><code class="xref lua lua-class docutils literal notranslate"><span class="pre">any</span></code></span>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="meteridentification-commands">
+<h2>MeterIdentification Commands<a class="headerlink" href="#meteridentification-commands" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SimpleMetering.html" class="btn btn-neutral float-left" title="SimpleMetering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ApplianceEventsAlerts.html" class="btn btn-neutral float-right" title="ApplianceEventsAlerts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, SmartThings.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

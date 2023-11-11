@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="true" type="lua.app" factoryName="Lua Application">
+    <option name="program" value="/usr/bin/lua5.3" />
+    <option name="file" value="" />
+    <option name="workingDir" value="$PROJECT_DIR$/zigbee-thermostat-v0.1/src" />
+    <option name="debuggerType" value="2" />
+    <option name="params" value="" />
+    <option name="charset" value="UTF-8" />
+    <option name="showConsole" value="true" />
+    <method v="2" />
+  </configuration>
+</component>

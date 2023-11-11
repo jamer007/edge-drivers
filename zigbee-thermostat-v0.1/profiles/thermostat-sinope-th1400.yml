@@ -129,6 +129,7 @@ preferences:
       options:
         usgov: "US Gov"
         cw_jamer007: "Canadian Weather jamer007"
+        accuweather: "Accuweather"
       default: cw_jamer007
   - title: "Current Weather URL"
     name: url

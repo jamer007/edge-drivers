@@ -1,0 +1,42 @@
+mDNS Service Discovery
+======================
+
+The ``st.mdns`` module provides an interface for performing service discovery on the local network for LAN Edge Drivers.
+It leverages the mDNS Protocol and DNS Service Discovery, which are systems that build on top of the concepts and data structures from
+traditional DNS and adapts them to run over UDP Multicast as well as advertising "services" in addition to just hostname resolution.
+This removes the need to have an authoritative central name server, making it very suitable for individual devices to advertise
+service discovery information on their own.
+
+For more information about DNS, DNS Service Discovery, and mDNS, consult their RFCs:
+
+- `Domain Names (DNS) RFC <https://www.rfc-editor.org/rfc/rfc1034.html>`_
+- `Multicast DNS (mDNS) RFC <https://www.rfc-editor.org/rfc/rfc6762>`_
+- `DNS-Based Service Discovery (DNS-SD) RFC <https://www.rfc-editor.org/rfc/rfc6763.html>`_
+
+The entry point most likely to be useful is ``mdns.discover`` which takes a Service Type string and a Domain string, then attempts to
+find and resolves all hosts that provide that service on the local network.
+
+Note: any mDNS services not on the local network will not be included in the response.
+
+A good example of a LAN integration that uses mDNS for service discovery is Philips Hue.
+A simple example of what browsing for Hue bridges would look like:
+
+.. code-block:: lua
+
+    -- scan for Hue bridges on the local network
+    local discover_responses = mdns.discover("_hue._tcp", "local") or {}
+
+    for idx, found in ipairs(discover_responses.found) do
+      -- sanity check that the answer contains a response to the correct service type,
+      -- and we only want to process ipv4
+      if found ~= nil and found.service_info.name == "_hue._tcp"
+          and not net_utils.validate_ipv4_string(found.host_info.address) then
+        -- process response
+      end
+    end
+
+
+mDNS Module Documentation
+-------------------------
+
+.. lua:automodule:: st.mdns

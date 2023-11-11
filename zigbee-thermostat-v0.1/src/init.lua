@@ -154,28 +154,6 @@ local thermostat_fan_mode_handler = function(driver, device, attr_fan_mode)
 end
 
 
-local function power_meter_handler(driver, device, value, zb_rx)
-  log.warn(string.format('????????????value %s %s', value, value.value))
-  local raw_value_miliwatts = value.value
-  local raw_value_watts = raw_value_miliwatts / 1000
-  local delta_energy = 0.0
-  local current_power_consumption = device:get_latest_state("main", capabilities.powerConsumptionReport.ID, capabilities.powerConsumptionReport.powerConsumption.NAME)
-
-  log.warn(string.format('????????????current_power_consumption %s %s', current_power_consumption, current_power_consumption.energy))
-  if current_power_consumption ~= nil then
-    delta_energy = math.max(raw_value_watts - current_power_consumption.energy, 0.0)
-  end
-  log.warn(string.format('????????????converted_value %s %s', raw_value_watts, delta_energy))
-  device:emit_event(capabilities.powerConsumptionReport.powerConsumption({energy = raw_value_watts, deltaEnergy = delta_energy })) -- the unit of these values should be 'Wh'
-
-  local multiplier = device:get_field(constants.SIMPLE_METERING_MULTIPLIER_KEY) or 1
-  local divisor = device:get_field(constants.SIMPLE_METERING_DIVISOR_KEY) or 1000000
-  local converted_value = raw_value_miliwatts * multiplier/divisor -- unit: kWh
-  log.warn(string.format('????????????converted_value %s', converted_value))
-  device:emit_event(capabilities.energyMeter.energy({value = converted_value, unit = "kWh"}))
-end
-
-
 local set_thermostat_mode = function(driver, device, command)
   for zigbee_attr_val, st_cap_val in pairs(THERMOSTAT_MODE_MAP) do
     if command.args.mode == st_cap_val.NAME then
