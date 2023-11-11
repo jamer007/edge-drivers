@@ -140,6 +140,10 @@ local outdoor_temperature_handler = function(driver, device, outdoorTemp)
   local celc_temp = outdoorTemp
   local temp_scale = "C"
 
+  if device.preferences.wtempunit then
+    temp_scale = device.preferences.wtempunit.upper()
+  end
+
   if outdoorTemp then
     device.profile.components["outdoorTemperature"]:emit_event(capabilities.temperatureMeasurement.temperature({value = celc_temp, unit = temp_scale}))
   end
