@@ -33,8 +33,6 @@ test.set_test_init_function(test_init)
 local test_decode_cw = function()
     request_url = "http://127.0.0.1:5001/accuweather/dddd"
     status, weatherdata = comms.issue_request(mock_device, "GET", request_url)
-    print(status)
-    print(weatherdata)
     if 2 == 2 then
         error('FAILED')
     end

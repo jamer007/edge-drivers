@@ -75,7 +75,7 @@ preferences:
       options:
         usgov: "US Gov"
         cw_jamer007: "Canadian Weather jamer007"
-        accuweather: "Accuweather"
+        accuweather: "AccuWeather"
       default: cw_jamer007
   - title: "Weather temp unit"
     name: wtempunit
@@ -91,12 +91,9 @@ preferences:
     name: "displayfeelslike"
     description: "Display or not feels like temperature"
     required: true
-    preferenceType: enumeration
+    preferenceType: boolean
     definition:
-      options:
-        real: "No"
-        feelslike: "Yes"
-      default: "real"
+      default: false
   - title: "Current Weather URL"
     name: url
     description: "URL"
@@ -137,7 +134,7 @@ preferences:
         disabled: "No auto refresh"
       default: disabled
   - title: "Refresh Rate"
-    name: refreshrate
+    name: wrefreshrate
     description: "Every n minutes"
     required: false
     preferenceType: integer

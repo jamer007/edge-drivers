@@ -119,7 +119,7 @@ preferences:
       options:
         usgov: "US Gov"
         cw_jamer007: "Canadian Weather jamer007"
-        accuweather: "Accuweather"
+        accuweather: "AccuWeather"
       default: cw_jamer007
   - title: "Current Weather URL"
     name: url
@@ -161,14 +161,13 @@ preferences:
         disabled: "No auto refresh"
       default: disabled
   - title: "Refresh Rate"
-    name: refreshrate
+    name: wrefreshrate
     description: "Every n minutes"
     required: false
     preferenceType: integer
     definition:
       minimum: 30
       maximum: 1440
-      default: 60
   - title: "Secondary Display"
     name: secondarydisplay
     description: "Which temperature to display on the secondary screen"

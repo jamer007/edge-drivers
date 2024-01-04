@@ -55,7 +55,6 @@ local function issue_request(device, req_method, req_url, sendbody)
   if sethost then
     log.debug ('Weather URL:',sethost)
     sethost = (sethost..'/'):match('://([^/]+)/')
-    log.debug ('\tHost=',sethost)
   else
     log.error ("Couldn't find weather URL host for:", req_url)
     return false
@@ -82,7 +81,6 @@ local function issue_request(device, req_method, req_url, sendbody)
      }
 
   else
-    print(http)
     body, code, headers, status = http.request{
       method = req_method,
       url = req_url,

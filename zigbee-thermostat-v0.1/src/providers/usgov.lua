@@ -67,7 +67,10 @@ local function update_current(device, weatherdata)
     local data, _, _ = json.decode(weatherdata, 1, nil)
     local root = data.properties
 
-    weathertable.current.temperature_c = getnumvalue(root, 'temperature', 'temp')
+    if getnumvalue(root, 'temperature', 'temp') then
+        weathertable.current.temperature_c = getnumvalue(root, 'temperature', 'temp')
+        weathertable.current.temperature_f = (1.8 * weathertable.current.temperature_c) + 32
+    end
 
     return weathertable
 

@@ -11,6 +11,7 @@ without them I would have not created those drivers, many thanks.
 provides weather data from select weather data sources:
 * US Government
 * Canadian Weather
+* Accuweather
 
 This driver requires no SmartApp, however it does require either TAustin **Edge Bridge Server** or a standard **Proxy server**[^1] running on a computer on your network.  This provides the linkage for the Edge driver to reach internet endpoints which otherwise are not available to Edge drivers.
 
@@ -69,7 +70,14 @@ For enable or not the screen backlight
 24h or 12h AM/PM format
 
 #### Weather Source
-Choose US Gov or Canadian Weather
+Choose US Gov, Canadian Weather or AccuWeather
+
+#### Weather temp unit
+Display °C or °F
+
+#### Display feels like
+Display the feels like temperature (Humidex/wind chill) if available
+
 #### Current Weather URL
 The complete URL to retrieve the current weather conditions.
 
@@ -78,6 +86,7 @@ The complete URL to retrieve the current weather conditions.
 ##### Examples
 * http://api.weather.gov/stations/KBAZ/observations/latest for US Gov
 * http://192.168.1.x:5000/<latitude\>,<longitude\> for Canadian Weather jamer007
+* http://dataservice.accuweather.com/currentconditions/v1/56186?details=true&apikey={API_KEY} for AccuWeather
 
 #### Proxy Server Address
 LAN address of either a standard Proxy server or the Edge Bridge Server[^1].
@@ -93,7 +102,7 @@ Choose either 'Standard Proxy Server'[^1] or 'Edge Bridge Server'
 Use this setting to enable or disable automatic refresh feature
 
 #### Refresh Rate
-Provide the number of minutes between refreshes (1-1,440)
+Provide the number of minutes between refreshes (30,1440)
 
 #### Secondary Display
 Choose what to display on the secondary thermostat screen, Outdoor temperature or Set temperature

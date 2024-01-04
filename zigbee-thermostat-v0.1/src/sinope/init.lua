@@ -137,15 +137,14 @@ end
 
 
 local outdoor_temperature_handler = function(driver, device, outdoorTemp)
-  local celc_temp = outdoorTemp
   local temp_scale = "C"
 
   if device.preferences.wtempunit then
-    temp_scale = device.preferences.wtempunit.upper()
+    temp_scale = string.upper(device.preferences.wtempunit)
   end
 
   if outdoorTemp then
-    device.profile.components["outdoorTemperature"]:emit_event(capabilities.temperatureMeasurement.temperature({value = celc_temp, unit = temp_scale}))
+    device.profile.components["outdoorTemperature"]:emit_event(capabilities.temperatureMeasurement.temperature({value = outdoorTemp, unit = temp_scale}))
   end
 
 end
@@ -175,22 +174,28 @@ local function send_outside_temperature(driver, device)
       weathertable = wmodule[device.preferences.wsource].update_current(device, weatherdata)
 
       if device.preferences.wtempunit == "c" then
-        if device.preferences.displayfeelslike == "real" and weathertable.current.temperature_c then
+        if device.preferences.displayfeelslike == false and weathertable.current.temperature_c then
+          log.debug('Celsius (real) will be set')
           temp_to_set = weathertable.current.temperature_c
-        elseif device.preferences.displayfeelslike == "feelslike" then
+        elseif device.preferences.displayfeelslike == true then
           if weathertable.current.feelslike_c then
+            log.debug('Celsius (feels like) will be set')
             temp_to_set = weathertable.current.feelslike_c
           elseif weathertable.current.temperature_c then
+            log.debug('No celsius (feels like) temp found defaulting to real temp')
             temp_to_set = weathertable.current.temperature_c
           end
         end
       elseif device.preferences.wtempunit == "f" then
-        if device.preferences.displayfeelslike == "real" and weathertable.current.temperature_f then
+        if device.preferences.displayfeelslike == false and weathertable.current.temperature_f then
+          log.debug('Fahrenheit (real) will be set')
           temp_to_set = weathertable.current.temperature_f
-        elseif device.preferences.displayfeelslike == "feelslike" then
+        elseif device.preferences.displayfeelslike == true then
           if weathertable.current.feelslike_f then
+            log.debug('Fahrenheit (feels like) will be set')
             temp_to_set = weathertable.current.feelslike_f
           elseif weathertable.current.temperature_c then
+            log.debug('No Fahrenheit (feels like) temp found defaulting to real temp')
             temp_to_set = weathertable.current.temperature_f
           end
         end
@@ -235,7 +240,7 @@ local function restart_timer(driver, device)
     driver:cancel_timer(device:get_field('periodictimer'))
   end
   local periodic_timer = driver:call_on_schedule(
-    device.preferences.refreshrate * 60,
+    device.preferences.wrefreshrate * 60,
     function ()
       return send_outside_temperature(driver, device)
     end,
@@ -274,7 +279,7 @@ local function info_changed(driver, device, event, args)
   if device.preferences.autorefresh == 'disabled' and device:get_field('periodictimer') then
     driver:cancel_timer(device:get_field('periodictimer'))
     device:set_field('periodictimer', nil)
-  elseif device.preferences.autorefresh == 'enabled' then
+  elseif device.preferences.autorefresh == 'enabled' and device:get_field('periodictimer') == nil then
     restarttimer = true
   end
 
@@ -302,8 +307,7 @@ local sinope_thermostat = {
   zigbee_handlers = {
     attr = {
       [Thermostat.ID] = {
-        [Thermostat.attributes.PIHeatingDemand.ID] = thermostat_heating_demand_handler,
-        [Thermostat.attributes.OutdoorTemperature.ID] = outdoor_temperature_handler
+        [Thermostat.attributes.PIHeatingDemand.ID] = thermostat_heating_demand_handler
       },
       [ElectricalMeasurement.ID] = {
         [ElectricalMeasurement.attributes.ActivePower.ID] = energy_meter_handler
